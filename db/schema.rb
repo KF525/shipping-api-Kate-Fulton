@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 20141216222500) do
   create_table "shipments", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "country"
     t.string   "city"
     t.string   "state"
     t.string   "postal_code"

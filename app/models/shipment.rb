@@ -1,14 +1,9 @@
 class Shipment < ActiveRecord::Base
   include ActiveMerchant::Shipping
 
-  validates :name, presence: true
-  validates :country, presence: true
   validates :city, presence: true
   validates :state, presence: true
   validates :postal_code, presence: true
-  validates :length, presence: true
-  validates :width, presence: true
-  validates :height, presence: true
   validates :weight, presence: true
 
   def origin
@@ -16,11 +11,11 @@ class Shipment < ActiveRecord::Base
   end
 
   def destination
-    Location.new(country: country, state: state, city: city, postal_code: postal_code)
+    Location.new(country: "US", state: state, city: city, postal_code: postal_code)
   end
 
   def packages
-    Package.new(weight, [18, 14, 12], cylinder: false)
+    Package.new(weight, [45, 35, 30], cylinder: false) #45L 35W 30H
   end
 
   def get_rates_from_shipper(shipper)
