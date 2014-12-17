@@ -16,12 +16,17 @@ class ShipmentsController < ApplicationController
     if @shipment.save
       result = []
       result.append(@shipment.ups_rates.as_json(only: ["carrier", "service_name", "currency", "total_price"]))
-      result.append(@shipment.usps_rates.as_json)#(only: ["carrier", "service_name", "currency", "package"]))
-      render json: result
+      result.append(@shipment.usps_rates.collect do |shipment|
+        { carrier: shipment.carrier,
+          service_name: shipment.service_name,
+          total_price: shipment.package_rates[0][:rate],
+          currency: shipment.currency
+        }
+      end)
+      render json: result.as_json
       #is this where it is logged?
-      #
     else
-      render json: {error: "Test"}
+      render json: {error: "Something went wrong. Please make sure you have provided all necessary information."}
     end
   end
 
