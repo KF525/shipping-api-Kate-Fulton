@@ -15,7 +15,7 @@ class ShipmentsController < ApplicationController
     @shipment = Shipment.new(params.require(:shipment).permit(:city, :state, :postal_code, :weight))
     if @shipment.save
       result = []
-      result.append(@shipment.ups_rates.as_json(only: ["carrier", "service_name", "currency", "total_price"])) #need to total_price/100.0
+      result.append(@shipment.ups_rates.as_json(only: ["carrier", "service_name", "currency", "total_price"]))
       result.append(@shipment.usps_rates.collect do |shipment|
         { carrier: shipment.carrier,
           service_name: shipment.service_name,
@@ -24,8 +24,8 @@ class ShipmentsController < ApplicationController
         }
       end)
 
+      Log.create(result.as_json)
       render json: result.as_json
-      #is this where it is logged?
     else
       render json: {error: "Something went wrong. Please make sure you have provided all necessary information."}
     end
