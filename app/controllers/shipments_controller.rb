@@ -23,8 +23,7 @@ class ShipmentsController < ApplicationController
           currency: shipment.currency
         }
       end)
-
-      Log.create(result.as_json)
+      Log.create(response: result.as_json, params: params.as_json, ip_address: env["REMOTE_HOST"], url: env["REQUEST_URI"])
       render json: result.as_json
     else
       render json: {error: "Something went wrong. Please make sure you have provided all necessary information."}
