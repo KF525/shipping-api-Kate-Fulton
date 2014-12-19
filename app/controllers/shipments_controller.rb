@@ -19,7 +19,7 @@ class ShipmentsController < ApplicationController
       result.append(@shipment.usps_rates.collect do |shipment|
         { carrier: shipment.carrier,
           service_name: shipment.service_name,
-          total_price: shipment.package_rates[0][:rate]/100.0,
+          total_price: shipment.package_rates[0][:rate],
           currency: shipment.currency
         }
       end)

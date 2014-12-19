@@ -1,5 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Shipment, :type => :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  #let!(:proper_params) { city: state: postal_code: weight: }
+
+  #context - what it should return
+    #let(:request) {
+    #
+    #}
 end
